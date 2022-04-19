@@ -20,12 +20,16 @@ void initialize(Queue* q);
 
 bool empty(Queue* q);
 
+int first(Queue* q);
+
+int size(Queue* q);
+
 void add(Queue* q, int value);
 
 int remove(Queue* q);
 
-int first(Queue* q);
+int elementAt(Queue* q, int pos);
 
-int size(Queue* q);
+
 
 

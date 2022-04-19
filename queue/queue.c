@@ -16,6 +16,17 @@ bool empty(Queue* q)
         return false;
 }
 
+int first(Queue* q)
+{
+    if(!empty(q))
+        return q->front->data;
+}
+
+int size(Queue* q)
+{
+    return q->size;
+}
+
 void add(Queue* q, int value)
 {
     Node* r = malloc(sizeof(Node));
@@ -56,14 +67,19 @@ int remove(Queue* q)
     return x;
 }
 
-int first(Queue* q)
+int elementAt(Queue* q, int pos)
 {
-    if(!empty(q))
-        return q->front->data;
+    Node* n = q->front;
+
+    int count = 0;
+    while(count < pos-1)
+    {
+        n = n->next;
+        count++;
+    }
+    
+    return n->data;
 }
 
-int size(Queue* q)
-{
-    return q->size;
-}
+
 

@@ -17,13 +17,16 @@ typedef struct stack
  // also empties the stack
 void initialize(Stack* s);
 
+int size(Stack* s);
+
+int top(Stack* s);
+
 bool empty(Stack* s);
 
 void push(Stack* s, int value);
 
 int pop(Stack* s);
 
-int top(Stack* s);
+int elementAt(Stack* s, int pos);
 
-int size(Stack* s);
 

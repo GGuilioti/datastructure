@@ -15,6 +15,17 @@ bool empty(Stack* s)
         return false;
 }
 
+int size(Stack* s)
+{
+    return s->size;
+}
+
+int top(Stack* s)
+{
+    if(!empty(s))
+        return s->top->data;
+}
+
 void push(Stack* s, int value)
 {
     Node* q = malloc(sizeof(Node));
@@ -41,13 +52,16 @@ int pop(Stack* s)
     }
 }
 
-int top(Stack* s)
+int elementAt(Stack* s, int pos)
 {
-    if(!empty(s))
-        return s->top->data;
-}
+    Node* n = s->top;
 
-int size(Stack* s)
-{
-    return s->size;
+    int count = 0;
+    while(count < pos-1)
+    {
+        n = n->next;
+        count++;
+    }
+    
+    return n->data;
 }

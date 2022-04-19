@@ -19,13 +19,24 @@ void initialize(List* l);
 
 bool empty(List* l);
 
+int size(List* l);
+
+int elementAt(List* l, int pos);
+
 // add an element on final of the list
 void append(List* l, int value);
+
+void insertAt(List* l, int value, int pos);
 
  // remove an element on final of the list
 int remove(List* l);
 
-int elementAt(List* l, int pos);
+int removeAt(List* l, int pos);
 
-int size(List* l);
+//result is l1 + l2
+void merge(List* l1, List* l2);
 
+// pos must be >= 1 where 1 is the first element
+List* split(List* l, int pos);
+
+List* copy(List* l);
