@@ -30,6 +30,10 @@ int remove(Queue* q);
 
 int elementAt(Queue* q, int pos);
 
+Queue* split(Queue* q, int pos);
+
+Queue* copy(Queue* q);
+
 
 
 

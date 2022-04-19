@@ -4,12 +4,11 @@
 void initialize(List* l)
 {
     l->head = NULL;
-    l->size = 0;
 }
 
 bool empty(List* l)
 {
-    if(l->size == 0)
+    if(l->head == NULL)
         return true;
     else
         return false;
@@ -17,7 +16,20 @@ bool empty(List* l)
 
 int size(List* l)
 {
-    return l->size;
+    if(!empty(l))
+    {
+        Node* n = l->head;
+
+        int size = 1;
+        while(n->next != NULL)
+        {
+            n = n->next;
+            size++;
+        }
+        return size;
+    }
+    else
+        return 0;
 }
 
 int elementAt(List* l, int pos)
@@ -47,8 +59,6 @@ void append(List* l, int value)
     n->next = malloc(sizeof(Node));
     n->next->data = value;
     n->next->next = NULL;
-
-    l->size += 1;
 }
 
 void insertAt(List* l, int value, int pos)
@@ -60,8 +70,6 @@ void insertAt(List* l, int value, int pos)
         n->data = value;
         n->next = l->head;
         l->head = n;
-
-        l->size += 1;
     }
     else
     {
@@ -78,8 +86,6 @@ void insertAt(List* l, int value, int pos)
         n2->data = value;
         n2->next = n->next;
         n->next = n2;
-
-        l->size += 1;
     }
 }
 
@@ -91,7 +97,6 @@ int remove(List* l)
     {
         ret = l->head->data;
         free(l);
-        l->size -= 1;
         return ret;
     }
 
@@ -119,8 +124,6 @@ int removeAt(List* l, int pos)
 
         free(n);
 
-        l->size -= 1;
-
         return ret;
     }
     else
@@ -137,8 +140,6 @@ int removeAt(List* l, int pos)
         n2->next = NULL;
 
         ret = n2->data;
-
-        l->size -= 1;
 
         free(n2);
 
@@ -170,7 +171,7 @@ void merge(List* l1, List* l2)
 // pos must be >= 1 where 1 is the first element
 List* split(List* l, int pos)
 {
-    if(!empty(l))
+    if(!empty(l) && (pos < size(l)))
     {
         if(pos <= 0)
             return;

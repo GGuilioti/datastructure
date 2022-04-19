@@ -29,4 +29,8 @@ int pop(Stack* s);
 
 int elementAt(Stack* s, int pos);
 
+//Stack* split(Stack* s, int pos);
+
+Stack* copy(Stack* s);
+
 

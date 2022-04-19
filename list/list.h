@@ -11,7 +11,6 @@ typedef struct node
 typedef struct list
 {
     Node* head;
-    int size;
 }List;
 
 // also empties the list

@@ -4,12 +4,11 @@
 void initialize(Stack* s)
 {
     s->top = NULL;
-    s->size = 0;
 }
 
 bool empty(Stack* s)
 {
-    if(s->size == 0)
+    if(s->top == NULL)
         return true;
     else
         return false;
@@ -17,7 +16,20 @@ bool empty(Stack* s)
 
 int size(Stack* s)
 {
-    return s->size;
+    if(!empty(s))
+    {
+        Node* n = s->top;
+
+        int size = 1;
+        while(n->next != NULL)
+        {
+            n = n->next;
+            size++;
+        }
+        return size;
+    }
+    else
+        return 0;
 }
 
 int top(Stack* s)
@@ -33,7 +45,6 @@ void push(Stack* s, int value)
     q->next = s->top;
     s->top = q;
     free(q);
-    s->size += 1;
 }
 
 int pop(Stack* s)
@@ -45,8 +56,6 @@ int pop(Stack* s)
         int key = q->data;
         s->top = s->top->next;
         free(q);
-
-        s->size -= 1;
 
         return key;
     }
@@ -64,4 +73,10 @@ int elementAt(Stack* s, int pos)
     }
     
     return n->data;
+}
+
+Stack* copy(Stack* s)
+{
+    Stack* s2 = s;
+    return s2; 
 }
