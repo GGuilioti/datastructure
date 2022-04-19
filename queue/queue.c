@@ -107,7 +107,7 @@ Queue* split(Queue* q, int pos)
 
         Queue* q2;
         q2->rear = q->rear;
-        q2->front = q->front;
+        q2->front = n->next;
         q->rear = n;
         q->rear->next = NULL;
 

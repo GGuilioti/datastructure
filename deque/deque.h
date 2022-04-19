@@ -29,3 +29,11 @@ int removeRight(Deque* d);
 int right(Deque* d);
 
 int left(Deque* d);
+
+int size(Deque* d);
+
+int elementAt(Deque* d, int pos);
+
+Deque* split(Deque* d, int pos);
+
+Deque* copy(Deque* d);

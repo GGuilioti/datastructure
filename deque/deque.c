@@ -103,3 +103,67 @@ int left(Deque* d)
     if(!empty(d))
         return d->left->data;
 }
+
+int size(Deque* d)
+{
+    if(!empty(d))
+    {
+        Node* n = d->left;
+
+        int size = 1;
+        while(n->next != NULL)
+        {
+            n = n->next;
+            size++;
+        }
+        return size;
+    }
+    else
+        return 0;
+}
+
+int elementAt(Deque* d, int pos)
+{
+    Node* n = d->left;
+
+    int count = 0;
+    while(count < pos-1)
+    {
+        n = n->next;
+        count++;
+    }
+    
+    return n->data;
+}
+
+Deque* split(Deque* d, int pos)
+{
+    if(!empty(d) && (pos < size(d)))
+    {
+        if(pos <= 0)
+            return;
+
+        Node* n = d->left;
+
+        int count = 1;
+        while(count < pos-1)
+        {
+            n = n->next;
+            count++;
+        }
+
+        Deque* d2;
+        d2->right = d->right;
+        d2->left = n->next;
+        d->right = n;
+        d->right->next = NULL;
+
+        return d2;
+    }
+}
+
+Deque* copy(Deque* d)
+{
+    Deque* d2 = d;
+    return d2;
+}
