@@ -11,15 +11,21 @@ typedef struct node
 typedef struct list
 {
     Node* head;
+    int size;
 }List;
 
-void initialize(List* l); // also empties the list
+// also empties the list
+void initialize(List* l); 
 
-bool isEmpty(List* l);
+bool empty(List* l);
 
-void append(List* l, int value); // add an element on final of the list
+// add an element on final of the list
+void append(List* l, int value);
 
-int remove(List* l); // remove an element on final of the list
+ // remove an element on final of the list
+int remove(List* l);
 
 int elementAt(List* l, int pos);
+
+int size(List* l);
 

@@ -11,15 +11,19 @@ typedef struct node
 typedef struct stack
 {
     Node* top;
+    int size;
 }Stack;
 
-void initialize(Stack* s); // also empties the stack
+ // also empties the stack
+void initialize(Stack* s);
 
-bool isEmpty(Stack* s);
+bool empty(Stack* s);
 
 void push(Stack* s, int value);
 
 int pop(Stack* s);
 
 int top(Stack* s);
+
+int size(Stack* s);
 

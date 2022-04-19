@@ -1,19 +1,22 @@
 #include "list.h"
 
-void initialize(List* l) // also empties the list
+// also empties the list
+void initialize(List* l)
 {
     l->head = NULL;
+    l->size = 0;
 }
 
-bool isEmpty(List* l)
+bool empty(List* l)
 {
-    if(l->head == NULL)
+    if(l->size == 0)
         return true;
     else
         return false;
 }
 
-void append(List* l, int value) // add an element at final of the list
+// add an element at final of the list
+void append(List* l, int value)
 {
     Node* n = l->head;
 
@@ -25,15 +28,19 @@ void append(List* l, int value) // add an element at final of the list
     n->next = malloc(sizeof(Node));
     n->next->data = value;
     n->next->next = NULL;
+
+    l->size += 1;
 }
 
-int remove(List* l) // remove the element at final of the list
+// remove the element at final of the list
+int remove(List* l)
 {
     int ret = 0;
     if(l->head->next == NULL)
     {
         ret = l->head->data;
         free(l);
+        l->size -= 1;
         return ret;
     }
 
@@ -60,4 +67,9 @@ int elementAt(List* l, int pos)
     }
     
     return n->data;
+}
+
+int size(List* l)
+{
+    return l->size;
 }

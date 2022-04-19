@@ -1,14 +1,16 @@
 #include "queue.h"
 
-void initialize(Queue* q) // also empties the queue
+// also empties the queue
+void initialize(Queue* q)
 {
     q->front = NULL;
     q->rear = NULL;
+    q->size = 0;
 }
 
-bool isEmpty(Queue* q)
+bool empty(Queue* q)
 {
-    if(q->front == NULL)
+    if(q->size == 0)
         return true;
     else
         return false;
@@ -20,10 +22,16 @@ void add(Queue* q, int value)
     r->data = value;
     r->next = NULL;
     
-    if(isEmpty(q))
+    if(empty(q))
+    {
         q->front = r;
+        q->size += 1;
+    }
     else
+    {
         q->rear->next = r;
+        q->size += 1;
+    }
     
     q->rear = r;
 }
@@ -31,7 +39,7 @@ void add(Queue* q, int value)
 int remove(Queue* q)
 {
     int x;
-    if(!isEmpty(q))
+    if(!empty(q))
     {
         Node* r = q->front;
         x = r->data;
@@ -39,7 +47,9 @@ int remove(Queue* q)
         q->front = q->front->next;
         free(r);
 
-        if (isEmpty(q))
+        q->size -= 1;
+
+        if (empty(q))
             q->rear = NULL;
     }
 
@@ -48,7 +58,12 @@ int remove(Queue* q)
 
 int first(Queue* q)
 {
-    if(!isEmpty(q))
+    if(!empty(q))
         return q->front->data;
+}
+
+int size(Queue* q)
+{
+    return q->size;
 }
 

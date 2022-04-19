@@ -12,16 +12,20 @@ typedef struct queue
 {
     Node* front;
     Node* rear;
+    int size;
 }Queue;
 
-void initialize(Queue* q); // also empties the queue
+// also empties the queue
+void initialize(Queue* q);
 
-bool isEmpty(Queue* q);
+bool empty(Queue* q);
 
 void add(Queue* q, int value);
 
 int remove(Queue* q);
 
 int first(Queue* q);
+
+int size(Queue* q);
 
 

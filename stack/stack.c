@@ -1,16 +1,18 @@
 #include "stack.h"
 
-void initialize(Stack* s) // also empties the stack
+// also empties the stack
+void initialize(Stack* s)
 {
     s->top = NULL;
+    s->size = 0;
 }
 
-bool isEmpty(Stack* s)
+bool empty(Stack* s)
 {
-    if(s->top == NULL)
-        return false;
-    else 
+    if(s->size == 0)
         return true;
+    else
+        return false;
 }
 
 void push(Stack* s, int value)
@@ -20,24 +22,32 @@ void push(Stack* s, int value)
     q->next = s->top;
     s->top = q;
     free(q);
+    s->size += 1;
 }
 
 int pop(Stack* s)
 {
-    if(!isEmpty(s))
+    if(!empty(s))
     {
         Node* q = malloc(sizeof(Node));
         q = s->top;
         int key = q->data;
         s->top = s->top->next;
         free(q);
-        
+
+        s->size -= 1;
+
         return key;
     }
 }
 
 int top(Stack* s)
 {
-    if(!isEmpty(s))
+    if(!empty(s))
         return s->top->data;
+}
+
+int size(Stack* s)
+{
+    return s->size;
 }
