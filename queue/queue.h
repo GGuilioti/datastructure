@@ -12,7 +12,6 @@ typedef struct queue
 {
     Node* front;
     Node* rear;
-    int size;
 }Queue;
 
 // also empties the queue
