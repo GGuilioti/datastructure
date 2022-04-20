@@ -8,35 +8,35 @@ typedef struct node
     Node* next;
 }Node;
 
-typedef struct list
+typedef struct headerlist
 {
     Node* head;
-}List;
+}HeaderList;
 
-// also empties the list
-void initialize(List* l); 
+// also empties the headerlist
+void initialize(HeaderList* l); 
 
-bool empty(List* l);
+bool empty(HeaderList* l);
 
-int size(List* l);
+int size(HeaderList* l);
 
-int elementAtIndex(List* l, int index);
+int elementAtIndex(HeaderList* l, int index);
 
 // negative for add in final, 0 to add in begin or positive to add at index
-void insert(List* l, int value, int index);
+void insert(HeaderList* l, int value, int index);
 
 // negative for remove in final, 0 to remove in begin or positive to remove at index
-int removeAtIndex(List* l, int index);
+int removeAtIndex(HeaderList* l, int index);
 
 //result is l1 + l2
-void merge(List* l1, List* l2);
+void merge(HeaderList* l1, HeaderList* l2);
 
 // pos must be >= 1 where 1 is the first element
-List* split(List* l, int index);
+HeaderList* split(HeaderList* l, int index);
 
-List* copy(List* l);
+HeaderList* copy(HeaderList* l);
 
-void sortedInsert(List* l, int value);
+void sortedInsert(HeaderList* l, int value);
 
 //removes the first element found equals to value
-int remove(List* l, int value);
+int remove(HeaderList* l, int value);

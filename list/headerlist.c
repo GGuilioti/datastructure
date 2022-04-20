@@ -1,13 +1,13 @@
 #include "headerlist.h"
 
-// also empties the list
-void initialize(List* l)
+// also empties the headerlist
+void initialize(HeaderList* l)
 {
     l->head = malloc(sizeof(Node));
     l->head->next = NULL;
 }
 
-bool empty(List* l)
+bool empty(HeaderList* l)
 {
     if(l->head->next == NULL)
         return true;
@@ -15,7 +15,7 @@ bool empty(List* l)
         return false;
 }
 
-int size(List* l)
+int size(HeaderList* l)
 {
     if(!empty(l))
     {
@@ -33,7 +33,7 @@ int size(List* l)
         return 0;
 }
 
-int elementAtIndex(List* l, int index)
+int elementAtIndex(HeaderList* l, int index)
 {
     Node* n = l->head->next;
 
@@ -47,7 +47,7 @@ int elementAtIndex(List* l, int index)
     return n->data;
 }
 
-void insert(List* l, int value, int index)
+void insert(HeaderList* l, int value, int index)
 {
 
     //final
@@ -93,7 +93,7 @@ void insert(List* l, int value, int index)
     }
 }
 
-int removeAtIndex(List* l, int index)
+int removeAtIndex(HeaderList* l, int index)
 {
     Node* n = l->head->next;
 
@@ -151,7 +151,7 @@ int removeAtIndex(List* l, int index)
     }
 }
 
-void merge(List* l1, List* l2)
+void merge(HeaderList* l1, HeaderList* l2)
 {
     if(empty(l1))
     {
@@ -173,7 +173,7 @@ void merge(List* l1, List* l2)
 }
 
 // pos must be >= 1 where 1 is the first element
-List* split(List* l, int index)
+HeaderList* split(HeaderList* l, int index)
 {
     if(!empty(l) && (index < size(l)))
     {
@@ -189,20 +189,20 @@ List* split(List* l, int index)
             count++;
         }
 
-        List* l2 = n->next;
+        HeaderList* l2 = n->next;
         n->next = NULL; 
 
         return l2;
     }
 }
 
-List* copy(List* l)
+HeaderList* copy(HeaderList* l)
 {
-    List* l2 = l;
+    HeaderList* l2 = l;
     return l2;
 }
 
-void sortedInsert(List* l, int value)
+void sortedInsert(HeaderList* l, int value)
 {
     Node* n = malloc(sizeof(Node));
     n->data = value;
@@ -219,9 +219,10 @@ void sortedInsert(List* l, int value)
 }
 
 //removes the first element found equals to value
-int remove(List* l, int value)
+int remove(HeaderList* l, int value)
 {
     Node* n = l;
+    int ret = 0;
 
     while ((n->next != NULL) && (n->next->data != value))
     {
@@ -232,6 +233,10 @@ int remove(List* l, int value)
     {
         Node* aux = n->next;
         n->next = aux->next;
+
+        ret = aux->data;
         free(aux);
+
+        return ret;
     }
 }

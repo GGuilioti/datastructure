@@ -1,24 +1,23 @@
-#include "list.h"
+#include "doublylist.h"
 
-// also empties the list
-void initialize(List* l)
+void initialize(DoublyList* d)
 {
-    l->head = NULL;
+    d->head = NULL;
 }
 
-bool empty(List* l)
+bool empty(DoublyList* d)
 {
-    if(l->head == NULL)
+    if(d->head == NULL)
         return true;
     else
         return false;
 }
 
-int size(List* l)
+int size(DoublyList* d)
 {
-    if(!empty(l))
+    if(!empty(d))
     {
-        Node* n = l->head;
+        Node* n = d->head;
 
         int size = 1;
         while(n->next != NULL)
@@ -32,9 +31,9 @@ int size(List* l)
         return 0;
 }
 
-int elementAtIndex(List* l, int index)
+int elementAtIndex(DoublyList* d, int index)
 {
-    Node* n = l->head;
+    Node* n = d->head;
 
     int count = 0;
     while(count < index)
@@ -46,22 +45,23 @@ int elementAtIndex(List* l, int index)
     return n->data;
 }
 
-void insert(List* l, int value, int index)
+void insert(DoublyList* d, int value, int index)
 {
 
     //final
     if(index < 0)
     {
-        Node* n = l->head;
+        Node* n = d->head;
 
         int count = 0;
-        while(count < size(l))
+        while(count < size(d))
         {
             n = n->next;
             count++;
         }
 
         n->next = malloc(sizeof(Node));
+        n->next->prev = n;
         n->next->data = value;
         n->next->next = NULL;  
     }
@@ -70,13 +70,14 @@ void insert(List* l, int value, int index)
     {
         Node* n = malloc(sizeof(Node));
         n->data = value;
-        n->next = l->head;
-        l->head = n;
+        n->next = d->head;
+        n->prev = NULL;
+        d->head = n;
     }
     //index
     else
     {
-        Node* n = l->head;
+        Node* n = d->head;
 
         int count = 0;
         while(count < index-1)
@@ -88,13 +89,14 @@ void insert(List* l, int value, int index)
         Node* n2 = malloc(sizeof(Node));
         n2->data = value;
         n2->next = n->next;
+        n2->prev = n;
         n->next = n2;
     }
 }
 
-int removeAtIndex(List* l, int index)
+int removeAtIndex(DoublyList* d, int index)
 {
-    Node* n = l->head;
+    Node* n = d->head;
 
     int ret = 0;
 
@@ -102,7 +104,7 @@ int removeAtIndex(List* l, int index)
     if(index < 0)
     {
         int count = 0;
-        while(count < (size(l) -1))
+        while(count < (size(d) -1))
         {
             n = n->next;
             count++;
@@ -120,7 +122,8 @@ int removeAtIndex(List* l, int index)
     //begin
     else if(index == 0)
     {
-        l->head = l->head->next;
+        d->head = d->head->next;
+        d->head->prev = NULL;
 
         ret = n->data;
 
@@ -140,7 +143,7 @@ int removeAtIndex(List* l, int index)
 
         Node* n2 = n->next;
         n->next = n2->next;
-        n2->next = NULL;
+        n2->next->prev = n;
 
         ret = n2->data;
 
@@ -150,36 +153,36 @@ int removeAtIndex(List* l, int index)
     }
 }
 
-void merge(List* l1, List* l2)
+void merge(DoublyList* d1, DoublyList* d2)
 {
-    if(empty(l1))
+    if(empty(d1))
     {
-        l1 = l2;
+        d1 = d2;
     }
     else
     {
-        if(empty(l2))
+        if(empty(d2))
             return;
         
-        Node* n = l1->head;
+        Node* n = d1->head;
         while (n->next->next != NULL)
         {
             n = n->next;
         }
 
-        n->next->next = l2;
+        n->next->next = d2;
+        d2->head->prev = n->next;
     }
 }
 
-// index must be >= 1 where 1 is the first element
-List* split(List* l, int index)
+DoublyList* split(DoublyList* d, int index)
 {
-    if(!empty(l) && (index < size(l)))
+    if(!empty(d) && (index < size(d)))
     {
         if(index <= 0)
             return;
 
-        Node* n = l->head;
+        Node* n = d->head;
 
         int count = 1;
         while(count < index-1)
@@ -188,59 +191,65 @@ List* split(List* l, int index)
             count++;
         }
 
-        List* l2 = n->next;
+        DoublyList* d2 = n->next;
         n->next = NULL; 
+        d2->head->prev = NULL;
 
-        return l2;
+        return d2;
     }
 }
 
-List* copy(List* l)
+DoublyList* copy(DoublyList* d)
 {
-    List* l2 = l;
-    return l2;
+    DoublyList* d2 = d;
+    return d2;
 }
 
-void sortedInsert(List* l, int value)
+void sortedInsert(DoublyList* d, int value)
 {
     Node* n = malloc(sizeof(Node));
     n->data = value;
 
-    if(empty(l) || value <= l->head->data)
+    if(empty(d) || value <= d->head->data)
     {
-        n->next = l;
-        l = n;
+        n->next = d;
+        n->prev = NULL;
+        d = n;
     }
     else
     {
-        Node* aux = l;
+        Node* aux = d;
         while ((aux->next != NULL) && (aux->next->data < value))
         {
             aux = aux->next;
         }
 
         n->next = aux->next;
+        aux->next->prev = n;
         aux->next = n;
+        n->prev = aux;
     }
 }
 
 //removes the first element found equals to value
-int remove(List* l, int value)
+int remove(DoublyList* d, int value)
 {
     int ret = 0;
-    if(!empty(l))
+    if(!empty(d))
     {
-        if(l->head->data = value)
+        if(d->head->data = value)
         {
-            Node* n = l;
-            l->head->next = l->head->next->next;
+            Node* n = d;
+            d->head->next->prev = NULL;
+            d->head = n->next;
+            
             ret = n->data;
             free(n);
             return ret;
         }
         else
         {
-            Node* aux = l;
+            Node* aux = d;
 
             while ((aux->next != NULL) && (aux->next->data != value))
             {
@@ -251,6 +260,7 @@ int remove(List* l, int value)
             {
                 Node* n = aux->next;
                 aux->next = n->next;
+                n->next->prev = aux;
                 ret = n->data;
                 free(n);
                 return ret;
