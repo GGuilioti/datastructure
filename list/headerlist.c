@@ -1,14 +1,15 @@
-#include "list.h"
+#include "headerlist.h"
 
 // also empties the list
 void initialize(List* l)
 {
-    l->head = NULL;
+    l->head = malloc(sizeof(Node));
+    l->head->next = NULL;
 }
 
 bool empty(List* l)
 {
-    if(l->head == NULL)
+    if(l->head->next == NULL)
         return true;
     else
         return false;
@@ -18,7 +19,7 @@ int size(List* l)
 {
     if(!empty(l))
     {
-        Node* n = l->head;
+        Node* n = l->head->next;
 
         int size = 1;
         while(n->next != NULL)
@@ -34,7 +35,7 @@ int size(List* l)
 
 int elementAtIndex(List* l, int index)
 {
-    Node* n = l->head;
+    Node* n = l->head->next;
 
     int count = 0;
     while(count < index)
@@ -52,7 +53,7 @@ void insert(List* l, int value, int index)
     //final
     if(index < 0)
     {
-        Node* n = l->head;
+        Node* n = l->head->next;
 
         int count = 0;
         while(count < size(l))
@@ -70,13 +71,13 @@ void insert(List* l, int value, int index)
     {
         Node* n = malloc(sizeof(Node));
         n->data = value;
-        n->next = l->head;
-        l->head = n;
+        n->next = l->head->next;
+        l->head->next = n;
     }
     //index
     else
     {
-        Node* n = l->head;
+        Node* n = l->head->next;
 
         int count = 0;
         while(count < index-1)
@@ -94,7 +95,7 @@ void insert(List* l, int value, int index)
 
 int removeAtIndex(List* l, int index)
 {
-    Node* n = l->head;
+    Node* n = l->head->next;
 
     int ret = 0;
 
@@ -120,7 +121,7 @@ int removeAtIndex(List* l, int index)
     //begin
     else if(index == 0)
     {
-        l->head = l->head->next;
+        l->head->next = l->head->next->next;
 
         ret = n->data;
 
@@ -161,7 +162,7 @@ void merge(List* l1, List* l2)
         if(empty(l2))
             return;
         
-        Node* n = l1->head;
+        Node* n = l1->head->next;
         while (n->next->next != NULL)
         {
             n = n->next;
@@ -171,7 +172,7 @@ void merge(List* l1, List* l2)
     }
 }
 
-// index must be >= 1 where 1 is the first element
+// pos must be >= 1 where 1 is the first element
 List* split(List* l, int index)
 {
     if(!empty(l) && (index < size(l)))
@@ -179,9 +180,9 @@ List* split(List* l, int index)
         if(index <= 0)
             return;
 
-        Node* n = l->head;
+        Node* n = l->head->next;
 
-        int count = 1;
+        int count = 0;
         while(count < index-1)
         {
             n = n->next;
@@ -206,50 +207,31 @@ void sortedInsert(List* l, int value)
     Node* n = malloc(sizeof(Node));
     n->data = value;
 
-    if(empty(l) || value <= l->head->data)
-    {
-        n->next = l;
-        l = n;
-    }
-    else
-    {
-        Node* aux = l;
-        while ((aux->next != NULL) && (aux->next->data < value))
-        {
-            aux = aux->next;
-        }
+    Node* aux = l;
 
-        n->next = aux->next;
-        aux->next = n;
+    while ((aux->next != NULL) && (aux->next->data < value))
+    {
+        aux = aux->next;
     }
+    
+    n->next = aux->next;
+    aux->next = n;
 }
 
 //removes the first element found equals to value
 int remove(List* l, int value)
 {
-    if(!empty(l))
-    {
-        if(l->head->data = value)
-        {
-            Node* n = l;
-            l->head->next = l->head->next->next;
-            free(n);
-        }
-        else
-        {
-            Node* aux = l;
+    Node* n = l;
 
-            while ((aux->next != NULL) && (aux->next->data != value))
-            {
-                aux = aux->next;
-            }
-            
-            if(aux->next != NULL)
-            {
-                Node* n = aux->next;
-                aux->next = n->next;
-                free(n);
-            }
-        }
+    while ((n->next != NULL) && (n->next->data != value))
+    {
+        n = n->next;
+    }
+    
+    if(n->next != NULL)
+    {
+        Node* aux = n->next;
+        n->next = aux->next;
+        free(aux);
     }
 }
