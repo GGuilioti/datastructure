@@ -46,37 +46,40 @@ int elementAt(List* l, int pos)
     return n->data;
 }
 
-// add an element at final of the list
-void append(List* l, int value)
+void add(List* l, int value, int index)
 {
-    Node* n = l->head;
 
-    while (n->next != NULL)
+    //final
+    if(index < 0)
     {
-        n = n->next;
+        Node* n = l->head;
+
+        int count = 0;
+        while(count < size(l))
+        {
+            n = n->next;
+            count++;
+        }
+
+        n->next = malloc(sizeof(Node));
+        n->next->data = value;
+        n->next->next = NULL;  
     }
-
-    n->next = malloc(sizeof(Node));
-    n->next->data = value;
-    n->next->next = NULL;
-}
-
-void insertAt(List* l, int value, int pos)
-{
-
-    if(pos <= 1)
+    //begin
+    else if(index == 0)
     {
         Node* n = malloc(sizeof(Node));
         n->data = value;
         n->next = l->head;
         l->head = n;
     }
+    //index
     else
     {
         Node* n = l->head;
 
-        int count = 1;
-        while(count < pos-1)
+        int count = 0;
+        while(count < index-1)
         {
             n = n->next;
             count++;
@@ -89,34 +92,33 @@ void insertAt(List* l, int value, int pos)
     }
 }
 
-// remove the element at final of the list
-int remove(List* l)
+int remove(List* l, int index)
 {
+    Node* n = l->head;
+
     int ret = 0;
-    if(l->head->next == NULL)
+
+    //final
+    if(index < 0)
     {
-        ret = l->head->data;
-        free(l);
+        int count = 0;
+        while(count < (size(l) -1))
+        {
+            n = n->next;
+            count++;
+        }
+
+        Node* n2 = n->next;
+        n->next = NULL;
+
+        ret = n2->data;
+
+        free(n2);
+
         return ret;
     }
-
-    Node* n = l->head;
-    while (n->next->next != NULL)
-    {
-        n = n->next;
-    }
-    ret = n->next->data;
-    free(n->next);
-    n->next = NULL;
-    return ret;
-}
-
-int removeAt(List* l, int pos)
-{
-    Node* n = l->head;
-
-    int ret = 0;
-    if(pos <= 1)
+    //begin
+    else if(index == 0)
     {
         l->head = l->head->next;
 
@@ -126,10 +128,11 @@ int removeAt(List* l, int pos)
 
         return ret;
     }
+    //index
     else
     {
-        int count = 1;
-        while(count < pos-1)
+        int count = 0;
+        while(count < index-1)
         {
             n = n->next;
             count++;

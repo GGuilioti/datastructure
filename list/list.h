@@ -22,15 +22,11 @@ int size(List* l);
 
 int elementAt(List* l, int pos);
 
-// add an element on final of the list
-void append(List* l, int value);
+// negative for add in final, 0 to add in begin or positive to add at index
+void add(List* l, int value, int index);
 
-void insertAt(List* l, int value, int pos);
-
- // remove an element on final of the list
-int remove(List* l);
-
-int removeAt(List* l, int pos);
+// negative for remove in final, 0 to remove in begin or positive to remove at index
+int remove(List* l, int index);
 
 //result is l1 + l2
 void merge(List* l1, List* l2);
