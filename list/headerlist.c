@@ -1,10 +1,11 @@
 #include "headerlist.h"
 
 // also empties the headerlist
-void initialize(HeaderList* l)
+HeaderList* initialize(HeaderList* l)
 {
     l->head = malloc(sizeof(Node));
     l->head->next = NULL;
+    return l;
 }
 
 bool empty(HeaderList* l)
@@ -198,7 +199,16 @@ HeaderList* split(HeaderList* l, int index)
 
 HeaderList* copy(HeaderList* l)
 {
-    HeaderList* l2 = l;
+    Node* aux = l->head->next;
+    HeaderList* l2 = initialize(l2);
+    while (aux->next != NULL)
+    {
+        insert(l2, aux->data, -1);
+        aux = aux->next;
+    }
+
+    insert(l2, aux->data, -1);
+    
     return l2;
 }
 

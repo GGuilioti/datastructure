@@ -14,7 +14,7 @@ typedef struct deque
     Node* right;
 }Deque;
 
-void initialize(Deque* d);
+Deque* initialize(Deque* d);
 
 bool empty(Deque* d);
 

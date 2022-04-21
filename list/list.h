@@ -14,7 +14,7 @@ typedef struct list
 }List;
 
 // also empties the list
-void initialize(List* l); 
+List* initialize(List* l); 
 
 bool empty(List* l);
 

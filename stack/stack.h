@@ -15,7 +15,7 @@ typedef struct stack
 }Stack;
 
  // also empties the stack
-void initialize(Stack* s);
+Stack* initialize(Stack* s);
 
 int size(Stack* s);
 

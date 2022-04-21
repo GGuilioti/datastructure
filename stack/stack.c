@@ -1,9 +1,11 @@
 #include "stack.h"
 
 // also empties the stack
-void initialize(Stack* s)
+Stack* initialize(Stack* s)
 {
     s->top = NULL;
+
+    return s;
 }
 
 bool empty(Stack* s)
@@ -77,6 +79,15 @@ int elementAt(Stack* s, int pos)
 
 Stack* copy(Stack* s)
 {
-    Stack* s2 = s;
-    return s2; 
+    Node* aux = s->top;
+    Stack* s2 = initialize(s2);
+    while (aux->next != NULL)
+    {
+        push(s2, aux->data);
+        aux = aux->next;
+    }
+
+    push(s2, aux->data);
+    
+    return s2;
 }

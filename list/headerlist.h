@@ -14,7 +14,7 @@ typedef struct headerlist
 }HeaderList;
 
 // also empties the headerlist
-void initialize(HeaderList* l); 
+HeaderList* initialize(HeaderList* l); 
 
 bool empty(HeaderList* l);
 

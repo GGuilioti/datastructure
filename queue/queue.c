@@ -1,10 +1,12 @@
 #include "queue.h"
 
 // also empties the queue
-void initialize(Queue* q)
+Queue* initialize(Queue* q)
 {
     q->front = NULL;
     q->rear = NULL;
+
+    return q;
 }
 
 bool empty(Queue* q)
@@ -25,7 +27,7 @@ int size(Queue* q)
 {
     if(!empty(q))
     {
-        Node* n = q->head;
+        Node* n = q->front;
 
         int size = 1;
         while(n->next != NULL)
@@ -117,7 +119,16 @@ Queue* split(Queue* q, int pos)
 
 Queue* copy(Queue* q)
 {
-    Queue* q2 = q;
+    Node* aux = q->front;
+    Queue* q2 = initialize(q2);
+    while (aux->next != NULL)
+    {
+        add(q2, aux->data);
+        aux = aux->next;
+    }
+
+    insert(q2, aux->data);
+    
     return q2;
 }
 

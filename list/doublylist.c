@@ -1,8 +1,9 @@
 #include "doublylist.h"
 
-void initialize(DoublyList* d)
+DoublyList* initialize(DoublyList* d)
 {
     d->head = NULL;
+    return d;
 }
 
 bool empty(DoublyList* d)
@@ -201,7 +202,16 @@ DoublyList* split(DoublyList* d, int index)
 
 DoublyList* copy(DoublyList* d)
 {
-    DoublyList* d2 = d;
+    Node* aux = d->head;
+    DoublyList* d2 = initialize(d2);
+    while (aux->next != NULL)
+    {
+        insert(d2, aux->data, -1);
+        aux = aux->next;
+    }
+
+    insert(d2, aux->data, -1);
+    
     return d2;
 }
 

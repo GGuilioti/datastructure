@@ -1,9 +1,10 @@
 #include "list.h"
 
 // also empties the list
-void initialize(List* l)
+List* initialize(List* l)
 {
     l->head = NULL;
+    return l;
 }
 
 bool empty(List* l)
@@ -197,7 +198,16 @@ List* split(List* l, int index)
 
 List* copy(List* l)
 {
-    List* l2 = l;
+    Node* aux = l->head;
+    List* l2 = initialize(l2);
+    while (aux->next != NULL)
+    {
+        insert(l2, aux->data, -1);
+        aux = aux->next;
+    }
+
+    insert(l2, aux->data, -1);
+    
     return l2;
 }
 

@@ -15,7 +15,7 @@ typedef struct queue
 }Queue;
 
 // also empties the queue
-void initialize(Queue* q);
+Queue* initialize(Queue* q);
 
 bool empty(Queue* q);
 

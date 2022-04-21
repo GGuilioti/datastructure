@@ -1,9 +1,11 @@
 #include "deque.h"
 
-void initialize(Deque* d)
+Deque* initialize(Deque* d)
 {
     d->left = NULL;
     d->right = NULL;
+
+    return d;
 }
 
 bool empty(Deque* d)
@@ -164,6 +166,15 @@ Deque* split(Deque* d, int pos)
 
 Deque* copy(Deque* d)
 {
-    Deque* d2 = d;
+    Node* aux = d->left;
+    Deque* d2 = initialize(d2);
+    while (aux->next != NULL)
+    {
+        addRight(d2, aux->data);
+        aux = aux->next;
+    }
+
+    addRight(d2, aux->data);
+    
     return d2;
 }

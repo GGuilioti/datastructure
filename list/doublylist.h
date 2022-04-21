@@ -15,7 +15,7 @@ typedef struct doublylist
 }DoublyList;
 
 // also empties the list
-void initialize(DoublyList* d); 
+DoublyList* initialize(DoublyList* d); 
 
 bool empty(DoublyList* d);
 
