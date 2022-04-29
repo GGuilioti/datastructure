@@ -26,3 +26,7 @@ int rebalance(Node* n);
 Node* rightRotate(Node* n);
 
 Node* leftRotate(Node* n);
+
+Node* insert(Node* n);
+
+Node* remove(Node* n, int value);
