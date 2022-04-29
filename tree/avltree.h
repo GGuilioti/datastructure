@@ -23,5 +23,6 @@ int height(Node* n);
 
 int rebalance(Node* n);
 
-int bigger(int a, int b);
+Node* rightRotate(Node* n);
 
+Node* leftRotate(Node* n);

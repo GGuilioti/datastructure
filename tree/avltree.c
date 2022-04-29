@@ -29,10 +29,28 @@ int rebalance(Node* n)
         return height(n->left) - height(n->right);
 }
 
-int bigger(int a, int b)
+Node* rightRotate(Node* n)
 {
-    if(a > b)
-        return a;
-    else
-        return b;
+    Node* aux = n->left;
+    n->left = aux->right;
+    aux->right = n;
+
+    n->height = max(height(n->left), height(n->right)) +1;
+
+    aux->height = max(height(aux->left), height(n->height)) +1;
+
+    return aux;
+}
+
+Node* leftRotate(Node* n)
+{
+    Node* aux = n->right;
+    n->right = aux->left;
+    aux->left = n;
+
+    aux->height = max(height(n->left), height(n->right)) +1;
+
+    n->height = max(height(aux->right), height(n->height)) +1;
+
+    return aux;
 }
