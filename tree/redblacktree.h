@@ -20,3 +20,7 @@ typedef struct redblacktree
 int cor(Node* c);
 
 void changeColor(Node* n);
+
+Node* leftRotate(Node* n);
+
+Node* rightRotate(Node* n);
