@@ -30,3 +30,7 @@ Node* moveLeftRed(Node* n);
 Node* moveRightRed(Node* n);
 
 Node* balance(Node* n);
+
+int insert(RedBlackTree* rb, int value);
+
+Node* insertNode(Node* n, int value, int *ret);

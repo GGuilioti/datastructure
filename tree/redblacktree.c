@@ -68,9 +68,63 @@ Node* balance(Node* n)
     if(color(n->right) == RED)
         n = leftRotate(n);
 
-    if(n->left != NULL && color(n->right) == RED && cor(n->left->left) == RED)
+    if(n->left != NULL && color(n->left) == RED && cor(n->left->left) == RED)
         n = rightRotate(n);
 
+    if(color(n->left) == RED && color(n->right) == RED)
+        changeColor(n);
+
+    return n;
+}
+
+int insert(RedBlackTree* rb, int value)
+{
+    int ret;
+
+    rb->root = insertNode(rb->root, value, &ret);
+    if(rb->root != NULL)
+        rb->root->color = BLACK;
+
+    return ret;
+}
+
+Node* insertNode(Node* n, int value, int *ret)
+{
+    if(n == NULL)
+    {
+        Node* new;
+        new = malloc(sizeof(Node));
+
+        if(new == NULL)
+        {
+            *ret = 0;
+            return NULL;
+        }
+
+        new->data = value;
+        new->color = RED;
+        new->left = NULL;
+        new->right = NULL;
+        *ret = 1;
+        return new;
+    }
+
+    if(value == n->data)
+        *ret = 0;
+    else
+    {
+        if(value < n->data)
+            n->left = insertNode(n->left, value, ret);
+        else
+            n->right = insertNode(n->right, value, ret);
+    }
+
+    if(color(n->right) == RED && color(n->left) == BLACK)
+        n = leftRotate(n);
+
+    if(color(n->left) == RED && color(n->left->left) == RED)
+        n = rightRotate(n);
+    
     if(color(n->left) == RED && color(n->right) == RED)
         changeColor(n);
 
