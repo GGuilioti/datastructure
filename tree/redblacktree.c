@@ -130,3 +130,79 @@ Node* insertNode(Node* n, int value, int *ret)
 
     return n;
 }
+
+int remove(RedBlackTree* rb, int value)
+{
+    if(consulta(rb, value))
+    {
+        Node* aux = rb;
+
+        rb = removeNode(aux, value);
+        if(rb != NULL)
+            rb->root->color = BLACK;
+        return 1;
+    }
+    else
+        return 0;
+}
+
+Node* removeNode(Node* n, int value)
+{
+    if(value < n->data)
+    {
+        if(color(n->left) == BLACK && color(n->left->left) == BLACK)
+            n = moveLeftRed(n);
+        
+        n->left = removeNode(n->left, value);
+    }
+    else
+    {
+        if(color(n->left) == RED)
+            n = rightRotate(n);
+
+        if(value == n->data && (n->right == NULL))
+        {
+            free(n);
+            return NULL;
+        }
+
+        if(color(n->right) == BLACK && color(n->right->left) == BLACK)
+            n = moveRightRed(n);
+
+        if(value == n->data)
+        {
+            Node* aux = minimum(n->right);
+            n->data = aux->data;
+            n->right = removeMinimum(n->right);
+        }else
+            n->right = removeNode(n->right, value);
+    }
+    return balance(n);
+}
+
+Node* removeMinimum(Node* n)
+{
+    if(n->left == NULL)
+    {
+        free(n);
+        return NULL;
+    }
+    if(color(n->left) == BLACK && color(n->left->left) == BLACK)
+        n = moveLeftRed(n);
+    
+    n->left = removeMinimum(n->left);
+    return balance(n);
+}
+
+Node* minimum(Node* n)
+{
+    Node* aux = n;
+    Node* aux2 = n->left;
+
+    while(aux2 != NULL)
+    {
+        aux = aux2;
+        aux2 = aux2->left;
+    }
+    return aux;
+}

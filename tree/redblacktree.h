@@ -34,3 +34,11 @@ Node* balance(Node* n);
 int insert(RedBlackTree* rb, int value);
 
 Node* insertNode(Node* n, int value, int *ret);
+
+int remove(RedBlackTree* rb, int value);
+
+Node* removeNode(Node* n, int value);
+
+Node* removeMinimum(Node* n);
+
+Node* minimum(Node* n);

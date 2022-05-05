@@ -68,7 +68,7 @@ Node* minimumRecursive(Node* n)
     if((n == NULL) || (n->left == NULL))
         return n;
     else
-        return minimum(n->left);
+        return minimumRecursive(n->left);
 }
 
 Node* maximumIterative(Node* n)
@@ -91,7 +91,7 @@ Node* maximumRecursive(Node* n)
     if((n == NULL) || (n->right == NULL))
         return n;
     else
-        return minimum(n->right);
+        return maximumRecursive(n->right);
 }
 
 Node* searchItarative(Node* n, int value)
