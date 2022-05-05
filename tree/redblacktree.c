@@ -38,3 +38,41 @@ Node* rightRotate(Node* n)
 
     return n2;
 }
+
+Node* moveLeftRed(Node* n)
+{
+    changeColor(n);
+    if(color(n->right->left) == RED)
+    {
+        n->right = rightRotate(n->right);
+        n = leftRotate(n);
+        changeColor(n);
+    }
+    return n;
+}
+
+Node* moveRightRed(Node* n)
+{
+    changeColor(n);
+    if(color(n->left->left) == RED)
+    {
+        n->right = rightRotate(n->right);
+        n = rightRotate(n);
+        changeColor(n);
+    }
+    return n;
+}
+
+Node* balance(Node* n)
+{
+    if(color(n->right) == RED)
+        n = leftRotate(n);
+
+    if(n->left != NULL && color(n->right) == RED && cor(n->left->left) == RED)
+        n = rightRotate(n);
+
+    if(color(n->left) == RED && color(n->right) == RED)
+        changeColor(n);
+
+    return n;
+}

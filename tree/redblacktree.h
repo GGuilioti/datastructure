@@ -24,3 +24,9 @@ void changeColor(Node* n);
 Node* leftRotate(Node* n);
 
 Node* rightRotate(Node* n);
+
+Node* moveLeftRed(Node* n);
+
+Node* moveRightRed(Node* n);
+
+Node* balance(Node* n);
