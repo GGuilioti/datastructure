@@ -22,22 +22,38 @@ int MaxHeapify(Heap heap, int index)
 {
     int l = Left(index);
     int r = Right(index);
-    int bigger;
+    int largest;
 
     if(l <= heap.size && heap.data[l] > heap.data[r])
-        bigger = l;
+        largest = l;
     else
-        bigger = index;
+        largest = index;
 
-    if(r <= heap.size && heap.data[r] > heap.data[bigger])
-        bigger = r;
+    if(r <= heap.size && heap.data[r] > heap.data[largest])
+        largest = r;
 
-    if(bigger != index)
+    if(largest != index)
     {
-        int aux = heap.data[index];
-        heap.data[index] = heap.data[bigger];
-        heap.data[bigger] = aux;
+        swap(heap.data[index], heap.data[largest]);
 
-        MaxHeapify(heap, bigger);
+        MaxHeapify(heap, largest);
     }
+}
+
+Heap BuildMaxHeap(Heap heap)
+{
+    heap.size = length;
+
+    for (int i = (length/2); i >= 0; i--)
+    {
+        MaxHeapify(heap, i);
+    }
+
+    return heap;
+}
+
+void swap(int *a, int *b) {
+  int temp = *a;
+  *a = *b;
+  *b = temp;
 }

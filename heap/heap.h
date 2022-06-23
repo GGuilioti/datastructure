@@ -1,8 +1,8 @@
-const int lenght = 1000;
+#define length 100
 
 typedef struct heap
 {
-    int data[lenght];
+    int data[length];
     int size;
 } Heap;
 
@@ -13,3 +13,7 @@ int Left(int index);
 int Right(int index);
 
 int MaxHeapify(Heap heap, int index);
+
+Heap BuildMaxHeap(Heap heap);
+
+void swamp(int *a, int *b);
