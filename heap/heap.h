@@ -16,4 +16,4 @@ int MaxHeapify(Heap heap, int index);
 
 Heap BuildMaxHeap(Heap heap);
 
-void swamp(int *a, int *b);
+void Swap(int *a, int *b);
